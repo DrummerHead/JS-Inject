@@ -1,0 +1,159 @@
+<!doctype html>
+<html>
+<head>
+
+<title>JS inject &#183; mcdlr</title>
+
+<meta charset='utf-8'>
+<meta name="author" content="DrummerHead">
+<meta name="description" content="With this tool creating a Bookmarklet is much easier. Just type the code, assign a name and an Anchor element with your code will be created below for you to drag to your bookmarks.">
+
+<style type="text/css">
+  body,
+  html {
+    margin: 0;
+    padding: 0;
+    font-family: courier, monospace;
+    color: #222;
+    background-color: #e1ffd3;
+  }
+  label[for='hasJQuery'] {
+    float: right;
+    margin: 0;
+  }
+  #hasJQuery {
+    width: auto;
+    height: 14px;
+    float: right;
+    margin: 1px 4px;
+  }
+  #container {
+    width: 800px;
+    margin: 0 auto;
+  }
+  label {
+    display: block;
+    margin: 16px 0 0 0;
+  }
+  textarea {
+    width: 97%;
+    height: 330px;
+    padding: 12px 0 12px 12px;
+    margin: 4px 0 0 0;
+  }
+  input {
+    width: 600px;
+    height: 25px;
+  }
+  input[type="submit"] {
+    width: 180px;
+    cursor: pointer;
+  }
+  small {
+    margin-top: 25px;
+    display: block;
+  }
+  #a-holder {
+    height: 17px;
+    border: 1px solid #ddd;
+    padding: 10px;
+    background-color: #f0fbe1;
+    text-align: center;
+  }
+  #a-holder a {
+    cursor: move;
+  }
+</style>
+
+<link rel="stylesheet" href="../css/promiscuous.css?1">
+<link rel="stylesheet" href="../css/theme-default.css">
+<link rel="stylesheet" href="../css/codemirror.css">
+<link rel='image_src' href='http://mcdlr.com/img/thumbs/js-inject.jpg'>
+
+<script src="jquery-1.6.2.min.js"></script>
+<script src="../js/libertine.js"></script>
+<script src="../js/codemirror-compressed.js"></script>
+<script src="../js/javascript.js"></script>
+</head>
+
+<body>
+<header id="brand">
+  <a href="/" title="Go to mcdlr homepage">Go to mcdlr homepage</a>
+</header>
+<!--
+<section id="auxilium">
+  <a href="#" class="close" title="Close Help">X</a>
+  <article>
+    <h1>Make Safe For Work</h1>
+    <p>Have you ever wanted to share a NSFW image with a coworker, but in a more stealthy way? Then this is the tool for you. Just paste the URL of whatever NSWF image you've found below, press 'Make it Safe' and you'll get a safe URL you can use to share the image.</p>
+    <p>Afterwards, you (or the recipient of the link) can see a glimpse of the image while pressing the 'show' button. If you don't want to be holding the button to see the image, click the 'Lock show' checkbox to change the way the button works.</p>
+  </article>
+  <div id="flap">
+    <a href="#">?</a>
+  </div>
+</section>
+-->
+
+<div id="container">
+  <h1>JS inject</h1>
+  <p>Here you can create a Bookmarklet in an easy way. Just type the code that you want executed and the link will be generated for you to drag to your Bookmarks bar.</p>
+  <p>You also have a jQuery script injection if you want to work with jQuery regardless of it being present on the target page. Just tick the checkbox to have it.</p>
+  <form id="magia">
+    <label for="hasJQuery">Include jQuery</label>
+    <input type="checkbox" id="hasJQuery">
+    <label for="sep">Here goes your script:</label>
+    <textarea id="sep" spellcheck="false"></textarea>
+    <label for="nome">Bookmarklet name:</label>
+    <input type="text" id="nome" value="Nome" />
+    <input type="submit" value="Generate Bookmarklet" />
+  </form>
+  <small>Drag the Bookmarklet that will appear here to your bookmarks bar and then use it in any page you want</small>
+  <div id="a-holder"></div>
+  <p>Interested in injecting some CSS instead? You should check <a href='/css-inject/'>CSS Inject</a>!</p>
+</div>
+
+<script>
+// codeMirror activate!!
+var editor = CodeMirror.fromTextArea(document.getElementById("sep"), {
+  lineNumbers: true,
+  matchBrackets: true
+});
+
+// Make the code magic!!
+$('#magia').submit(function(){
+  var raw = $('#sep').val(),
+      noSingleQuote = raw.replace(/'/g,'&#39;'),
+      noDoubleQuote = noSingleQuote.replace(/"/g,'&#34;'), 
+      noReturnNewline = noDoubleQuote.replace(/[\r\n]/g,' '), 
+      noTabs = noReturnNewline.replace(/\t/g,' '), 
+      noExtraSpaces = noTabs.replace(/ +/g,' '), 
+
+      nome = $('#nome').val(),
+      hasJq = $('#hasJQuery:checked').length;
+  
+  if (hasJq) {
+    var aHref = "javascript:(function(){if(typeof ZHJ1bW1lcg === 'undefined'){var jQueryScript=document.createElement('script');jQueryScript.setAttribute('src','//ajax.googleapis.com/ajax/libs/jquery/1.6.3/jquery.min.js');var caput=document.getElementsByTagName('head');caput[0].appendChild(jQueryScript);ZHJ1bW1lcg=true;}setTimeout(function(){$(document).ready(function(){"+ noExtraSpaces +"});},200);})();";
+  } else {
+    var aHref = "javascript:(function(){"+ noExtraSpaces +"})();";
+  }
+
+  var aElement = '<a href="'+aHref+'">'+nome+'</a>';
+
+  $('#a-holder').empty().append(aElement);
+
+  return false;
+});
+</script>
+<!-- Google analytics -->
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-1030009-5");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+<!-- /Google analytics -->
+</body>
+</html>

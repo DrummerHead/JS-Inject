@@ -1,0 +1,9 @@
+From:
+http://mcdlr.com/
+
+See it live at:
+http://mcdlr.com/js-inject/
+
+With this tool creating a Bookmarklet is much easier. Just type the code, assign a name and an Anchor element with your code will be created below for you to drag to your bookmarks.
+
+You also have the possibility of adding jQuery to the target page so you can write you javascript using jQuery, just a checkbox away!
