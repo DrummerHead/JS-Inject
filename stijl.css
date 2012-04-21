@@ -1,3 +1,7 @@
+/*                       *\
+   Styles by DrummerHead
+\*                       */
+
 body,
 html {
   margin: 0;
@@ -43,12 +47,17 @@ small {
   display: block;
 }
 #a-holder {
-  height: 17px;
+  height: 64px;
+  margin: .5em 0;
   border: 1px solid #ddd;
-  padding: 10px;
-  background-color: #f0fbe1;
+  font-size: 2em;
   text-align: center;
+  background-color: #f0fbe1;
 }
 #a-holder a {
   cursor: move;
+  background-color: lightBlue;
+  display: block;
+  line-height: 1;
+  padding: .5em;
 }
