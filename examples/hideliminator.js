@@ -70,7 +70,7 @@ var h1d3l1m1n4t04 = {
       .bind('mouseout.h1d3l1m1n4t04', this.leave);
     this.$body.prepend(this.$endThis);
   }
-}
+};
 
 h1d3l1m1n4t04.initialize();
 
