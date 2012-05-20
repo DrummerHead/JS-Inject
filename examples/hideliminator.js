@@ -7,32 +7,77 @@
 \* -  v1.0                          - */
 
 
-var h1d3r = function(e) {
-  e.stopPropagation();
-  $(this).hide();
-  return false;
-},
-ent3r = function(e) {
-  e.stopPropagation();
-  $(this).css({
-    'outline':'1px solid red'
-  });
-},
-l34v3 = function(e) {
-  e.stopPropagation();
-  $(this).css({
-    'outline':'none'
-	});
-},
-endThis = '<a href="#" id="endTheSuffering" style="position:fixed;top:0;right:0;background-color:rgba(0,0,0,.5);display:block;color:#fff;pointer:cursor;text-decoration:none;padding:1em;">End Hideliminator</a>';
+var h1d3l1m1n4t04 = {
 
-$('body *').bind('click', h1d3r).bind('mouseover', ent3r).bind('mouseout', l34v3);
-$('body').prepend(endThis);
+  $me : function(){
+    return this
+  },
 
-$('#endTheSuffering').click(function(){
-  $('body *').unbind('click', h1d3r).unbind('mouseover', ent3r).unbind('mouseout', l34v3);
+  seeMe : function(){
+    console.log(this.$me());
+  },
+
+  $allElem : $('body *'),
+
+  $body : $('body'),
+
+  $endThis : $('<a/>', {
+    href : '#',
+    id : 'endTheSuffering',
+    css : {
+      'position' : 'fixed',
+      'top' : '0',
+      'right' : '0',
+      'background-color' : 'rgba(0,0,0,.5)',
+      'display' : 'block',
+      'color' : '#fff',
+      'pointer' : 'cursor',
+      'text-decoration' : 'none',
+      'padding' : '1em',
+    },
+    text : 'End Hideliminator'
+  }),
+
+  hider : function(e) {
+    e.stopPropagation();
+    $(this).hide();
+    return false;
+  },
+
+  enter : function(e) {
+    e.stopPropagation();
+    $(this).css({
+      'outline':'1px solid red'
+    });
+  },
+
+  leave : function(e) {
+    e.stopPropagation();
+    $(this).css({
+      'outline':'none'
+    });
+  },
+
+  endHideliminator : function(e) {
+    e.preventDefault();
+    this.$allElem.unbind('.h1d3l1m1n4t04');
+  },
+
+  initialize : function() {
+    this.$allElem
+      .bind('click.h1d3l1m1n4t04', this.hider)
+      .bind('mouseover.h1d3l1m1n4t04', this.enter)
+      .bind('mouseout.h1d3l1m1n4t04', this.leave);
+    this.$body.prepend(this.$endThis);
+  }
+}
+
+h1d3l1m1n4t04.initialize();
+
+// this is wrong but I am tired of finding the way to do it right
+$('#endTheSuffering').click(function(e){
+  h1d3l1m1n4t04.endHideliminator(e);
   $(this).fadeOut();
-  return false;
 });
 
 
