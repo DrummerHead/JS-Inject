@@ -2,9 +2,10 @@
       http://mcdlr.com/js-inject/              - */
 
 
-/* -  Hideliminator - Any website   - *\
-|* -  Hide elements on command      - *|
-\* -  v1.0                          - */
+/* -  Hideliminator - Any website         - *\
+|* -  Hide elements on command            - *|
+|* -  Remember to check "Include jQuery"  - *|
+\* -  v1.0                                - */
 
 
 var h1d3l1m1n4t04 = {
