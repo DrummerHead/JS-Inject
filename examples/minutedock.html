@@ -1,0 +1,12 @@
+<!doctype html>
+<html>
+<head>
+  <title>{nomen}</title>
+  <meta name='author' content='DrummerHead'>
+  <link rel='stylesheet' href='examples.css'>
+</head>
+<body>
+  <small>Drag the below link to your bookmarks</small>
+  <a href="javascript:(function(){ var tempus = new Date() , miliInADay = 86400000 , miliInAWeek = miliInADay * 7 , miliInAMonth = miliInADay * 30 , rightNow = tempus.getTime() , weekNow = tempus.getDay()+1 , weekPercentage = weekNow * 100 / 7 , monthDateFirst = tempus.setDate(1) , monthNow = rightNow - monthDateFirst , monthPercentage = monthNow * 100 / miliInAMonth , $brief = $$(%27.brief%27) , regexMonthly = /monthly/ , regexWeekly = /weekly/ ; var makeTimeBar = function(n){ var barHTML = %27&lt;div class=%22progress_bar_track%22&gt;&lt;div class=%22progress_bar%22&gt;&lt;div style=%22width: %27 + n + %27%%22 class=%22progress%22&gt;&nbsp;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;%27; return barHTML }; $brief.each(function(el){ var $briefPeriod = el.down(%27.normal .period%27) , briefPeriodText = $briefPeriod.textContent.strip() , $progressBarTrack = el.down(%27.progress_bar_track%27) , isMonth = regexMonthly.test(briefPeriodText) , isWeek = regexWeekly.test(briefPeriodText) ; if(isMonth){ $progressBarTrack.insert({after : makeTimeBar(monthPercentage)}); } else if(isWeek){ $progressBarTrack.insert({after : makeTimeBar(weekPercentage)}); } }); })();">timeBar</a>
+</body>
+</html>
