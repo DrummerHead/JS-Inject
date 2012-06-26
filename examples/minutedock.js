@@ -6,14 +6,12 @@ var tempus = new Date()
 
   , rightNow = tempus.getTime()
 
+  , weekNow = tempus.getDay()+1
+  , weekPercentage = weekNow * 100 / 7
+
   , monthDateFirst = tempus.setDate(1)
-  , monthDateLast = tempus.setDate(30)
-
-  , monthStart = 0
   , monthNow = rightNow - monthDateFirst
-
   , monthPercentage = monthNow * 100 / miliInAMonth
-
 
   , $brief = $$('.brief')
   , regexMonthly = /monthly/
@@ -22,7 +20,6 @@ var tempus = new Date()
 
 var makeTimeBar = function(n){
   var barHTML = '<div class="progress_bar_track"><div class="progress_bar"><div style="width: ' + n + '%" class="progress">&nbsp;</div></div></div>';
-
   return barHTML
 };
 
@@ -35,13 +32,10 @@ $brief.each(function(el){
     ;
 
   if(isMonth){
-    $progressBarTrack.insert({after : makeTimeBar(77)});
+    $progressBarTrack.insert({after : makeTimeBar(monthPercentage)});
   }
   else if(isWeek){
-    $progressBarTrack.insert({after : makeTimeBar(20)});
-  }
-  else{
-    console.log('noooo carajooo');
+    $progressBarTrack.insert({after : makeTimeBar(weekPercentage)});
   }
 
 });
