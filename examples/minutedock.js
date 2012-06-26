@@ -1,3 +1,12 @@
+/* -  These is a javascript snippet to be used with
+      http://mcdlr.com/js-inject/              - */
+
+
+/* -  MinuteDock - http://minutedock.com/         - *\
+|* -  Add timeBar to visualize progress on Goals  - *|
+\* -  v0.8                                        - */
+
+
 var tempus = new Date()
 
   , miliInADay = 86400000
@@ -40,3 +49,5 @@ $brief.each(function(el){
 
 });
 
+
+/* -  /MinuteDock  - */
