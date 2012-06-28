@@ -53,7 +53,7 @@ console.log('monthPercentage    = ' + monthPercentage);
 
 
 var makeTimeBar = function(n){
-  var barHTML = '<div class="progress_bar_track"><div class="progress_bar"><div style="width: ' + n + '%" class="progress"></div></div></div>';
+  var barHTML = '<div class="progress_bar_track"><div class="progress_bar"><div style="width: ' + n + '%" class="progress"></div></div></div><p style="margin: 14px 0 0 0; padding: 0 10px; text-align: center;">if the timeBar is shorter than the bar above it: Yey!</p>';
   return barHTML
 };
 
