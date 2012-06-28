@@ -4,7 +4,7 @@
 
 /* -  MinuteDock - http://minutedock.com/         - *\
 |* -  Add timeBar to visualize progress on Goals  - *|
-\* -  v0.9                                        - */
+\* -  v1.0                                        - */
 
 
 var tempus = new Date()
@@ -17,7 +17,7 @@ var tempus = new Date()
   , todayStarted = new Date().setHours(0, 0, 0, 0)
   , miliElapsedToday = rightNow - todayStarted
 
-  , weekDay = tempus.getDay()
+  , weekDay = (tempus.getDay() + 6) %7
   , weekDayMili = weekDay * miliInADay
   , miliElapsedInWeek = weekDayMili + miliElapsedToday
   , weekPercentage = miliElapsedInWeek * 100 / miliInAWeek
@@ -33,22 +33,22 @@ var tempus = new Date()
   ;
 
 
-/*
-console.log('rightNow           = ' + rightNow );
-console.log('todayStarted       = ' + todayStarted );
-console.log('miliElapsedToday   = ' + miliElapsedToday );
+/* * /
+console.log('rightNow           = ' + rightNow + ' - ' + new Date(rightNow));
+console.log('todayStarted       = ' + todayStarted + ' - ' + new Date(todayStarted));
+console.log('miliElapsedToday   = ' + miliElapsedToday + ' - ' + new Date(miliElapsedToday));
 
-console.log('weekDay            = ' + weekDay );
-console.log('weekDayMili        = ' + weekDayMili );
-console.log('miliElapsedInWeek  = ' + miliElapsedInWeek );
-console.log('weekPercentage     = ' + weekPercentage );
+console.log('weekDay            = ' + weekDay);
+console.log('weekDayMili        = ' + weekDayMili + ' - ' + new Date(weekDayMili));
+console.log('miliElapsedInWeek  = ' + miliElapsedInWeek + ' - ' + new Date(miliElapsedInWeek));
+console.log('weekPercentage     = ' + weekPercentage);
 
-console.log('monthFirstDay      = ' + monthFirstDay);
-console.log('monthBegins        = ' + monthBegins);
-console.log('rightNow           = ' + rightNow);
-console.log('monthNow           = ' + monthNow);
+console.log('monthFirstDay      = ' + monthFirstDay + ' - ' + new Date(monthFirstDay));
+console.log('monthBegins        = ' + monthBegins + ' - ' + new Date(monthBegins));
+console.log('rightNow           = ' + rightNow + ' - ' + new Date(rightNow));
+console.log('monthNow           = ' + monthNow + ' - ' + new Date(monthNow));
 console.log('monthPercentage    = ' + monthPercentage);
-*/
+/* */
 //console.log(' = ' + );
 
 
