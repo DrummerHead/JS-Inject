@@ -25,6 +25,7 @@ $form.submit(function(e){
     , parsedJs = raw
         .replace(/\/\*[\s\S]*?\*\//g,'') // Delete block commentaries
         .replace(/\/\/.*/g,'')           // Delete single line commentaries
+        .replace(/%/g,'%25')             // Safe porcentage
         .replace(/'/g,'%27')             // Safe single quotes
         .replace(/"/g,'%22')             // Safe double quotes
         .replace(/[\r\n\t]/g,' ')        // No newlines or tabs
