@@ -11,7 +11,7 @@ body {
 small {
   margin-top: 20%;
 }
-a {
+small + a {
   display: inline-block;
   width: 77%;
   margin: .2em 0;
