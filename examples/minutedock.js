@@ -6,8 +6,6 @@
 |* -  Add timeBar to visualize progress on Goals  - *|
 \* -  v1.2                                        - */
 
-(function(){
-
 
 
 
@@ -92,7 +90,5 @@ $$('.progress_bar').each(function(el){
 
 
 
-
-})()
 
 /* -  /MinuteDock  - */
