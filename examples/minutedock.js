@@ -4,32 +4,38 @@
 
 /* -  MinuteDock - http://minutedock.com/         - *\
 |* -  Add timeBar to visualize progress on Goals  - *|
-\* -  v1.0                                        - */
+\* -  v1.2                                        - */
+
+(function(){
 
 
-var tempus = new Date()
+
+
+var today = new Date()
+  , todayStarted = new Date().setHours(0, 0, 0, 0)
 
   , miliInADay = 86400000
-  , miliInAWeek = miliInADay * 7
+  , miliInAWorkingWeek = miliInADay * 5
   , miliInAMonth = miliInADay * 30
 
-  , rightNow = tempus.getTime()
-  , todayStarted = new Date().setHours(0, 0, 0, 0)
+  , rightNow = today.getTime()
   , miliElapsedToday = rightNow - todayStarted
+  , dayPercentage = miliElapsedToday * 100 / miliInADay
 
-  , weekDay = (tempus.getDay() + 6) %7
+  , weekDay = (today.getDay() + 6) %7
   , weekDayMili = weekDay * miliInADay
   , miliElapsedInWeek = weekDayMili + miliElapsedToday
-  , weekPercentage = miliElapsedInWeek * 100 / miliInAWeek
+  , weekPercentage = miliElapsedInWeek * 100 / miliInAWorkingWeek
 
-  , monthFirstDay = tempus.setDate(1)
-  , monthBegins = tempus.setHours(0, 0, 0, 0)
+  , monthFirstDay = today.setDate(1)
+  , monthBegins = today.setHours(0, 0, 0, 0)
   , monthNow = rightNow - monthBegins
   , monthPercentage = monthNow * 100 / miliInAMonth
 
   , $brief = $$('.brief')
   , regexMonthly = /monthly/
   , regexWeekly = /weekly/
+  , regexDaily = /daily/
   ;
 
 
@@ -37,6 +43,7 @@ var tempus = new Date()
 console.log('rightNow           = ' + rightNow + ' - ' + new Date(rightNow));
 console.log('todayStarted       = ' + todayStarted + ' - ' + new Date(todayStarted));
 console.log('miliElapsedToday   = ' + miliElapsedToday + ' - ' + new Date(miliElapsedToday));
+console.log('dayPercentage      = ' + dayPercentage);
 
 console.log('weekDay            = ' + weekDay);
 console.log('weekDayMili        = ' + weekDayMili + ' - ' + new Date(weekDayMili));
@@ -49,7 +56,7 @@ console.log('rightNow           = ' + rightNow + ' - ' + new Date(rightNow));
 console.log('monthNow           = ' + monthNow + ' - ' + new Date(monthNow));
 console.log('monthPercentage    = ' + monthPercentage);
 /* */
-//console.log(' = ' + );
+//console.log('x   = ' + x + ' - ' + new Date(x));
 
 
 var makeTimeBar = function(n){
@@ -57,12 +64,14 @@ var makeTimeBar = function(n){
   return barHTML
 };
 
+
 $brief.each(function(el){
   var $briefPeriod = el.down('.normal .period')
     , briefPeriodText = $briefPeriod.textContent.strip()
     , $progressBarTrack = el.down('.progress_bar_track')
     , isMonth = regexMonthly.test(briefPeriodText)
     , isWeek = regexWeekly.test(briefPeriodText)
+    , isDay = regexDaily.test(briefPeriodText)
     ;
 
   if(isMonth){
@@ -71,8 +80,19 @@ $brief.each(function(el){
   else if(isWeek){
     $progressBarTrack.insert({after : makeTimeBar(weekPercentage)});
   }
-
+  else if(isDay){
+    $progressBarTrack.insert({after : makeTimeBar(dayPercentage)});
+  }
 });
 
+
+$$('.progress_bar').each(function(el){
+  el.setStyle({overflow : 'hidden'})
+})
+
+
+
+
+})()
 
 /* -  /MinuteDock  - */
