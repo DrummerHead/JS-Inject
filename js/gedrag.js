@@ -1,4 +1,4 @@
-(function($){
+function($){
 
 
 
@@ -23,13 +23,15 @@ $form.submit(function(e){
 
   var raw = $codeInput.val()
     , parsedJs = raw
-        .replace(/\/\*[\s\S]*?\*\//g,'') // Delete block commentaries
-        .replace(/\/\/.*/g,'')           // Delete single line commentaries
-        .replace(/%/g,'%25')             // Safe porcentage
-        .replace(/'/g,'%27')             // Safe single quotes
-        .replace(/"/g,'%22')             // Safe double quotes
-        .replace(/[\r\n\t]/g,' ')        // No newlines or tabs
-        .replace(/ +/g,' ')              // No extra spaces
+        .replace(/\/\*[\s\S]*?\*\//g,'')           // Delete block commentaries
+        .replace(/(https?:)\/\//g,'$1aHR0cHMvLw') // Preserve URLs hack (no lookbehind in js)
+        .replace(/\/\/.*/g,'')                   // Delete single line commentaries
+        .replace(/aHR0cHMvLw/g,'//')            // Return URL's //
+        .replace(/%/g,'%25')                   // Safe porcentage
+        .replace(/'/g,'%27')                  // Safe single quotes
+        .replace(/"/g,'%22')                 // Safe double quotes
+        .replace(/[\r\n\t]/g,' ')           // No newlines or tabs
+        .replace(/ +/g,' ')                // No extra spaces
     , nome = $linkName.val()
     , hasJq = $('#hasJQuery:checked').length
     , aHref = hasJq ?
