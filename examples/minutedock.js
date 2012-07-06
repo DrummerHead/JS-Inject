@@ -4,7 +4,7 @@
 
 /* -  MinuteDock - http://minutedock.com/         - *\
 |* -  Add timeBar to visualize progress on Goals  - *|
-\* -  v1.3                                        - */
+\* -  v1.3.2                                      - */
 
 
 
@@ -23,7 +23,8 @@ var today = new Date()
   , weekDay = (today.getDay() + 6) %7
   , weekDayMili = weekDay * miliInADay
   , miliElapsedInWeek = weekDayMili + miliElapsedToday
-  , weekPercentage = miliElapsedInWeek * 100 / miliInAWorkingWeek
+  , weekPercentageOverflow = miliElapsedInWeek * 100 / miliInAWorkingWeek
+  , weekPercentage = ( weekPercentageOverflow < 100 ? weekPercentageOverflow : 100 )
 
   , monthFirstDay = today.setDate(1)
   , monthBegins = today.setHours(0, 0, 0, 0)
@@ -64,15 +65,15 @@ var makeTimeBar = function(timePercentage, isWorkAboveTime){
 
 
 $brief.each(function(el){
-  var $briefPeriod = el.down('.normal .period')
-    , briefPeriodText = $briefPeriod.textContent.strip()
+  var periodText = el.down('.normal .period').textContent.strip()
     , $progressBarTrack = el.down('.progress_bar_track')
-    , progressPercentage = parseInt(el.down('.progress').getStyle('width'))
+    , $progress = el.down('.progress')
+    , progressPercentage = ( $progress ? parseInt(el.down('.progress').getStyle('width')) : 0 )
+    , isMonth = regexMonthly.test(periodText)
+    , isWeek = regexWeekly.test(periodText)
+    , isDay = regexDaily.test(periodText)
     , timePercentage
     , isWorkAboveTime
-    , isMonth = regexMonthly.test(briefPeriodText)
-    , isWeek = regexWeekly.test(briefPeriodText)
-    , isDay = regexDaily.test(briefPeriodText)
     ;
 
   if(isMonth){
@@ -85,15 +86,17 @@ $brief.each(function(el){
     timePercentage = dayPercentage
   }
 
-  isWorkAboveTime = progressPercentage > timePercentage;
+  isWorkAboveTime = progressPercentage >= timePercentage;
 
   $progressBarTrack.insert({after : makeTimeBar(timePercentage, isWorkAboveTime)});
 });
 
 
+/* * /
 $$('.progress_bar').each(function(el){
   el.setStyle({overflow : 'hidden'})
 })
+/* */
 
 
 
