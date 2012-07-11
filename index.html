@@ -45,6 +45,7 @@
   <h1>JS inject</h1>
   <p>Here you can create a Bookmarklet in an easy way. Just type the code that you want executed and the link will be generated for you to drag to your Bookmarks bar.</p>
   <p>You also have a jQuery script injection if you want to work with jQuery regardless of it being present on the target page. Just tick the checkbox to have it.</p>
+
   <form id="magia">
     <label for="hasJQuery">Include jQuery</label>
     <input type="checkbox" id="hasJQuery">
@@ -54,9 +55,12 @@
     <input type="text" id="nome" value="Nome" />
     <input type="submit" value="Generate Bookmarklet" />
   </form>
+
   <small>Drag the Bookmarklet that will appear here to your bookmarks bar and then use it in any page you want</small>
   <div id="a-holder"></div>
   <p>Interested in injecting some CSS instead? You should check <a href='/css-inject/'>CSS Inject</a>!</p>
+
+  <textarea id="codeOutput" spellcheck="false"></textarea>
 </div>
 
 
@@ -66,16 +70,13 @@
 <script src="../js/javascript.js"></script>
 <script src="js/gedrag.js"></script>
 
-<!-- Google analytics -->
-<script type="text/javascript">
-var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+
+<script> //Google analytics
+var _gaq=[['_setAccount','UA-1030009-5'],['_trackPageview']];
+(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+s.parentNode.insertBefore(g,s)}(document,'script'));
 </script>
-<script type="text/javascript">
-try {
-var pageTracker = _gat._getTracker("UA-1030009-5");
-pageTracker._trackPageview();
-} catch(err) {}</script>
-<!-- /Google analytics -->
+
 </body>
 </html>

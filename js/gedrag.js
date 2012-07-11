@@ -4,7 +4,7 @@
 
 
 // Start codeMirror
-var editor = CodeMirror.fromTextArea(document.getElementById('codeInput'), {
+CodeMirror.fromTextArea(document.getElementById('codeInput'), {
   lineNumbers: true,
   matchBrackets: true
 });
@@ -13,6 +13,7 @@ var editor = CodeMirror.fromTextArea(document.getElementById('codeInput'), {
 // Define DOM areas
 var $form = $('#magia')
   , $targetLink = $('#a-holder')
+  , $codeOutput = $('#codeOutput')
   , $codeInput = $('#codeInput')
   , $linkName = $('#nome')
 
@@ -41,6 +42,7 @@ $form.submit(function(e){
     , aElement = '<a href="'+aHref+'">'+nome+'</a>'
 
   $targetLink.empty().append(aElement);
+  $codeOutput.empty().text(aElement)
 });
 
 

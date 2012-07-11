@@ -23,6 +23,7 @@ label[for='hasJQuery'] {
 #container {
   width: 800px;
   margin: 0 auto;
+  padding: .2em 0 2em;
 }
 label {
   display: block;
