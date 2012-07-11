@@ -4,7 +4,7 @@
 
 /* -  MinuteDock - http://minutedock.com/         - *\
 |* -  Add timeBar to visualize progress on Goals  - *|
-\* -  v1.3.2                                      - */
+\* -  v1.4                                        - */
 
 
 
@@ -58,8 +58,8 @@ console.log('monthPercentage    = ' + monthPercentage);
 //console.log('x   = ' + x + ' - ' + new Date(x));
 
 
-var makeTimeBar = function(timePercentage, isWorkAboveTime){
-  var barHTML = '<div class="progress_bar_track" title="If this bar is shorter than the bar above: Yey!"><div class="progress_bar' + (isWorkAboveTime ? ' green' : ' red') + '"><div style="width: ' + timePercentage + '%" class="progress"></div></div></div>';
+var makeTimeBar = function(percentageDelta, isWorkAboveTime, timePercentage){
+  var barHTML = '<div class="progress_bar_track" title="TimeBar &#183; Percentage delta = ' + percentageDelta + '%"><div class="progress_bar' + (isWorkAboveTime ? ' green' : ' red') + '"><div style="width: ' + timePercentage + '%" class="progress"></div></div></div>';
   return barHTML
 };
 
@@ -73,7 +73,6 @@ $brief.each(function(el){
     , isWeek = regexWeekly.test(periodText)
     , isDay = regexDaily.test(periodText)
     , timePercentage
-    , isWorkAboveTime
     ;
 
   if(isMonth){
@@ -86,17 +85,12 @@ $brief.each(function(el){
     timePercentage = dayPercentage
   }
 
-  isWorkAboveTime = progressPercentage >= timePercentage;
+  var isWorkAboveTime = progressPercentage >= timePercentage
+    , percentageDelta = (progressPercentage - timePercentage).toFixed(1)
+    ;
 
-  $progressBarTrack.insert({after : makeTimeBar(timePercentage, isWorkAboveTime)});
+  $progressBarTrack.insert({after : makeTimeBar(percentageDelta, isWorkAboveTime, timePercentage)});
 });
-
-
-/* * /
-$$('.progress_bar').each(function(el){
-  el.setStyle({overflow : 'hidden'})
-})
-/* */
 
 
 
