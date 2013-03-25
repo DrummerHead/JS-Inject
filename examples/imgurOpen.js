@@ -4,10 +4,10 @@
 
 /* -  Imgur - http://imgur.com/gallery  - *\
 |* -  Open several images in new tabs   - *|
-\* -  v1.0                              - */
+\* -  v1.1                              - */
 
 
-$('#imagelist').find('a').each(function(e){
+$('#imagelist .posts').find('a').each(function(e){
   if(e >= 50){
     return false;
   }
