@@ -14,8 +14,9 @@ entries.each(function(){
   var link = I.find('a.title').attr('href');
   var comments = I.find('a.comments').attr('href'); //remove this line if only want submissions
 
-  window.open(link);
   window.open(comments); //remove this line if only want submissions
+  window.open(link);
+
 });
 
 
