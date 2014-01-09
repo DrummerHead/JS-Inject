@@ -54,7 +54,7 @@ switch(host){
     break;
   case 'kickass.to':
   case 'kickmirror.com':
-    c('.downloadButtonGroup a.verifTorrentButton');
+    c('.downloadButtonGroup a.siteButton');
     break;
   case 'torcache.net':
     c('.container-fluid > .row-fluid > center:nth-of-type(2) a');
@@ -95,6 +95,9 @@ switch(host){
     break;
   case 'www.newtorrents.info':
     c('#tablediv .sm tr:first-child td:nth-child(2) a');
+    break;
+  case 'h33t.to':
+    c('table.lista tr:nth-child(2) td:nth-child(2) table td:nth-child(2) a');
     break;
 
   default:
