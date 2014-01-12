@@ -2,35 +2,81 @@
       http://mcdlr.com/js-inject/              - */
 
 
-/* -  galFly                                                         - *\
-|* -  Render images based on links to those images in a single page  - *|
-\* -  v1.0                                                           - */
+/* -  galFly                                                    - *\
+|* -  Render linked images from current page, move width j & k  - *|
+\* -  v2.0                                                      - */
 
-var links = $('a');
-var hrefs = [];
-var texts = [];
+
+var links = document.querySelectorAll('a');
 var vacuna = "<ul id='vitrum'>";
 
-var css = "body{margin:0}#vitrum{list-style-type:none; padding:1em; background-color: #ddd; text-align: center; font-family: sans-serif;} #vitrum li{padding: 4em 0} #vitrum img{display: block; max-width: 100%; margin: 0 auto;} #vitrum a{display: inline-block; margin: 1em 0; color: #777; text-decoration: none; } #vitrum a:hover{text-decoration: underline;}";
-$('head').append("<style>"+css+"</style>");
-
-var imgo = function(leenk, text){
-  var li = "<li><img src='"+leenk+"'><a href='"+leenk+"'>"+text+"</a></li>";
-  return li;
+var imgo = function(leenk, text, id){
+  return "<li><img id='" + id + "' src='" + leenk + "'><a href='" + leenk + "'>" + text + "</a></li>";
 };
 
-links.each(function(i){
-  var I = $(this);
-  hrefs[i] = I.attr('href');
-  texts[i] = I.text();
-});
-
-for(j in hrefs){
-  var li = imgo(hrefs[j], texts[j]);
+for(var i = 0; i < links.length; i++){
+  var I = links.item(i);
+  var li = imgo(I.getAttribute('href'), I.textContent, "a" + i);
   vacuna += li;
-};
-  
-console.log(hrefs);
- $('body').html(vacuna+"</ul>");
+}
 
-/* -  /Sitename  - */
+var css = "body { margin: 0; background-color: #ddd; font-family: sans-serif; } #vitrum { list-style-type: none; padding: 1em; text-align: center; } #vitrum li { padding: 4em 0 } #vitrum img { display: block; max-width: 100%; margin: 0 auto; } #vitrum a { display: inline-block; margin: 1em 0; color: #777; text-decoration: none; } #vitrum a:hover { text-decoration: underline; }";
+var script = "var currentImage = 0; function goToImage(id){ var el = document.getElementById('a' + id); window.scrollTo(0, el.offsetTop - 5); } window.onkeypress = function(e){ if(e.charCode == 106){ goToImage(++currentImage); } else if(e.charCode == 107){ goToImage(--currentImage); } }";
+
+document.write("<!doctype html><html><head><title>Image gallery</title><meta charset='utf-8'><style>" +
+  css +
+  "</style></head><body>" +
+  vacuna +
+  "</ul><script>" +
+  script +
+  "</script></body></html>");
+document.close();
+
+/* * /
+body {
+  margin: 0;
+  background-color: #ddd;
+  font-family: sans-serif;
+}
+#vitrum {
+  list-style-type: none;
+  padding: 1em;
+  text-align: center;
+}
+#vitrum li {
+  padding: 4em 0
+}
+#vitrum img {
+  display: block;
+  max-width: 100%;
+  margin: 0 auto;
+}
+#vitrum a {
+  display: inline-block;
+  margin: 1em 0;
+  color: #777;
+  text-decoration: none;
+}
+#vitrum a:hover {
+  text-decoration: underline;
+}
+/* */
+
+/* * /
+var currentImage = 0;
+function goToImage(id){
+  var el = document.getElementById('a' + id);
+  window.scrollTo(0, el.offsetTop - 5);
+}
+window.onkeypress = function(e){
+  if(e.charCode == 106){
+    goToImage(++currentImage);
+  }
+  else if(e.charCode == 107){
+    goToImage(--currentImage);
+  }
+}
+/* */
+
+
+/* -  /galFly  - */
