@@ -1,0 +1,55 @@
+body {
+  font-family: sans-serif;
+  margin: 0;
+}
+header {
+  background-color: #eee;
+}
+.vessel {
+  max-width: 40em;
+  margin: 0 auto;
+  padding: 1em 0;
+}
+#hrefBar {
+  font-size: 1.2em;
+}
+#hrefBar span {
+  color: #808080;
+}
+#hrefBar b {
+  color: #444;
+  cursor: pointer;
+}
+#hrefBar.done b {
+  color: #808080;
+  cursor: auto;
+  font-weight: normal;
+}
+#hrefBar b.selected {
+  color: #444;
+  cursor: auto;
+  font-weight: bold;
+}
+form {
+  display: none;
+  margin-top: 1em;
+}
+.visible {
+  display: block;
+}
+#gal {
+  list-style-type: none;
+  padding: 0 1em;
+  margin: 0;
+}
+#gal li {
+  padding: 7em 0;
+}
+#gal img {
+  display: block;
+  max-width: 100%;
+  margin: 0 auto;
+  font-size: 3em;
+  text-align: center;
+  color: #ccc;
+}
