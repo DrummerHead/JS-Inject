@@ -37,6 +37,9 @@ form {
 .visible {
   display: block;
 }
+main {
+  text-align: center;
+}
 #gal {
   list-style-type: none;
   padding: 0 1em;
@@ -52,4 +55,27 @@ form {
   font-size: 3em;
   text-align: center;
   color: #ccc;
+}
+#gal a {
+  display: inline-block;
+  padding: 1em;
+  text-decoration: none;
+  color: #ccc;
+}
+#gal a:hover {
+  color: #808080;
+  text-decoration: underline;
+}
+#load-more {
+  display: block;
+  padding: 1em;
+  cursor: pointer;
+  background-color: #eee;
+  color: #888;
+  font-size: 1.5em;
+  font-weight: bold;
+}
+#load-more:hover {
+  background-color: #ddd;
+  color: #777;
 }
