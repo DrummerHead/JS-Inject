@@ -1,5 +1,5 @@
-/* -  These is a javascript snippet to be used with
-      http://mcdlr.com/js-inject/              - */
+/* -  This is a javascript snippet to be used with
+      http://mcdlr.com/js-inject/             - */
 
 
 /* -  galFly                                                    - *\
