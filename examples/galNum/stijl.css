@@ -10,22 +10,22 @@ header {
   margin: 0 auto;
   padding: 1em 0;
 }
-#hrefBar {
+#hb {
   font-size: 1.2em;
 }
-#hrefBar span {
+#hb span {
   color: #808080;
 }
-#hrefBar b {
+#hb b {
   color: #444;
   cursor: pointer;
 }
-#hrefBar.done b {
+#hb.done b {
   color: #808080;
   cursor: auto;
   font-weight: normal;
 }
-#hrefBar b.selected {
+#hb b.s {
   color: #444;
   cursor: auto;
   font-weight: bold;
@@ -34,7 +34,7 @@ form {
   display: none;
   margin-top: 1em;
 }
-.visible {
+.v {
   display: block;
 }
 main {
@@ -53,7 +53,6 @@ main {
   max-width: 100%;
   margin: 0 auto;
   font-size: 3em;
-  text-align: center;
   color: #ccc;
 }
 #gal a {
@@ -66,16 +65,15 @@ main {
   color: #808080;
   text-decoration: underline;
 }
-#load-more {
-  display: block;
+#more {
   padding: 1em;
-  cursor: pointer;
-  background-color: #eee;
-  color: #888;
   font-size: 1.5em;
   font-weight: bold;
+  background-color: #eee;
+  color: #888;
+  cursor: pointer;
 }
-#load-more:hover {
+#more:hover {
   background-color: #ddd;
   color: #777;
 }
