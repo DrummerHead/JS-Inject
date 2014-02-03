@@ -34,6 +34,7 @@ var zoom = function(el){
   }
   else{
     t.setAttribute('style', 'width:100%');
+    t.ct = -1;
   }
   if(t.ct == 3){
     t.ct = -1;
@@ -61,8 +62,8 @@ var inject = function(start){
     increase += shift;
     maxImage = start + shift;
 
-    $gal.insertAdjacentHTML('afterEnd', '<strong id=\"load-more\">Load more</strong>');
-    $('load-more').addEventListener('click', function(){
+    $gal.insertAdjacentHTML('afterEnd', '<div id=\"more\">Load more</div>');
+    $('more').addEventListener('click', function(){
       scrollTo(0, 0);
       this.outerHTML = '';
       inject(start + shift);
@@ -73,6 +74,7 @@ var inject = function(start){
       load += imageLinks[i];
     }
     maxImage = imageLinks.length;
+    $gal.insertAdjacentHTML('afterEnd', '<div id=\"end\"></div>');
   }
 
   $gal.innerHTML = load;

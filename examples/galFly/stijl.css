@@ -9,7 +9,7 @@ body {
   list-style-type: none;
 }
 #gal li {
-  min-height: "+window.innerHeight+"px;
+  min-height: "+innerHeight+"px;
   padding: 4em 0
 }
 #gal img {
@@ -40,6 +40,9 @@ body {
   font-size: 1.4em;
   list-style-type: none;
   color: #888;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
 }
 #move li {
   float: left;
@@ -62,8 +65,7 @@ body {
   width: 2em;
   text-indent: -.5em;
 }
-#load-more {
-  display: block;
+#more {
   padding: 1em;
   cursor: pointer;
   background-color: #eee;
@@ -71,7 +73,11 @@ body {
   font-size: 1.5em;
   font-weight: bold;
 }
-#load-more:hover {
+#more:hover {
   background-color: #ddd;
   color: #777;
+}
+#end {
+  background-color: #ffb1ba;
+  height: 10em;
 }
