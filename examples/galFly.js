@@ -22,8 +22,8 @@ for(var i = 0; i < imgs.length; i++){
   }
 }
 
-var lis = Array.prototype.map.call(noRepeats, function(val, i){
-    return '<li><img id="a' + i + '" src="' + val.href + '" alt="' + val.href + '"><a href="' + val.href + '">' + val.textContent + '</a></li>';
+var lis = noRepeats.map(function(val, i){
+  return '<li><img id="a' + i + '" src="' + val.href + '" alt="' + val.href + '"><a href="' + val.href + '">' + val.textContent + '</a></li>';
   });
 
 var stringified = JSON.stringify(lis).replace(/\\/g, '\\\\').replace(/'/g, '\\\'');
