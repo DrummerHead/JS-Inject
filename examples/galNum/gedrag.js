@@ -6,15 +6,21 @@
 var $ = function(element){
   return document.querySelector(element)
 };
+var p = function(num){
+  return parseInt(num, 10);
+};
 var $hrefBar = $('#hb');
-var $from = $('#from');
-var $to = $('#to');
+var $start = $('#start');
+var $shift = $('#shift');
 var $form = $('form');
 var $main = $('main');
-var loadShift = 25;
+var defaultShift = 25;
+var currentImage = 0;
+var minImage = 0;
+var maxImage = defaultShift;
 var hrefBarContent = '';
 var constantHref;
-var p = parseInt;
+var galWidth = parseInt(getComputedStyle($main).getPropertyValue('width'), 10);
 var hrefParts = 'http://photos.safaribookings.com/library/botswana/xxl/Mokolodi_Nature_Reserve_001.jpg'.split(/(\d+)/).map(function(part){
   return {
     'prt' : part,
@@ -40,15 +46,52 @@ var zeroize = function(number, length){
   return num;
 };
 
-var createGal = function(from, to){
+var goToImage = function(id){
+  if(id > maxImage){
+    scrollTo(0, 77777);
+  }
+  else if(id >= minImage){
+    var el = $('#a' + id);
+    scrollTo(0, el.offsetTop - 5);
+  }
+};
+
+var zoom = function(el){
+  var t = el.currentTarget || el;
+  t.ct++;
+  var newWidth = t.naturalWidth * (t.ct + 1);
+  if(newWidth <= galWidth){
+    t.setAttribute('style', 'width:' + newWidth + 'px;height:' + t.naturalHeight * (t.ct + 1) + 'px');
+  }
+  else{
+    t.setAttribute('style', 'width:100%');
+    t.ct = -1;
+  }
+  if(t.ct == 3){
+    t.ct = -1;
+  }
+}
+
+var bindResize = function(imgs){
+  for(var i = 0; i < imgs.length; i++){
+    var I = imgs.item(i);
+    I.ct = 0;
+    I.addEventListener('click', zoom);
+  }
+};
+
+var createGal = function(start, shift){
   $main.innerHTML = '';
   var gallery = '<ul id="gal">';
-  var hasZeros = /^0*/.test(from.toString());
+  var hasZeros = /^0*/.test(start);
+  var end = maxImage = p(start) + p(shift);
+  currentImage = start;
+  minImage = start;
 
-  for(var i = p(from, 10); i <= p(to, 10); i++){
-    var num = (hasZeros ? zeroize(i, from.length) : i);
+  for(var i = p(start); i <= end; i++){
+    var num = (hasZeros ? zeroize(i, start.length) : i);
     var src = constantHref[0] + num + constantHref[1];
-    gallery += '<li><img src="' + src + '" alt="' + num + '"><a href="' + src + '">' + src + '</a></li>';
+    gallery += '<li><img id="a' + i + '" src="' + src + '" alt="' + num + '"><a href="' + src + '">' + src + '</a></li>';
   }
   gallery += '</ul>';
   $main.innerHTML = gallery;
@@ -56,12 +99,12 @@ var createGal = function(from, to){
   $main.insertAdjacentHTML('beforeEnd', '<div id="more">Load more</div>');
   $('#more').addEventListener('click', function(){
     scrollTo(0, 0);
-    var newFrom = (hasZeros ? zeroize(to, from.length) : to);
-    var newTo = p(to, 10) + loadShift;
-    $from.value = newFrom;
-    $to.value = newTo;
-    createGal(newFrom, newTo);
+    var newStart = (hasZeros ? zeroize(end, start.length) : end);
+    $start.value = newStart;
+    createGal(newStart, shift);
   });
+
+  bindResize(document.querySelectorAll('img'));
 };
 
 
@@ -80,14 +123,33 @@ for(var i = 0; i < $numbers.length; i++){
     this.classList.add('s');
     hrefParts[this.getAttribute('data-position')].isS = true;
     constantHref = splitBySelected(hrefParts);
-    $from.value = this.textContent;
-    $to.value = p(this.textContent, 10) + loadShift;
+    $start.value = this.textContent;
+    $shift.value = defaultShift;
   });
 }
 
+onkeypress = function(e){
+  if(e.charCode == 106){
+    goToImage(++currentImage);
+  }
+  else if(e.charCode == 107){
+    goToImage(--currentImage);
+  }
+};
+
+$('#up').addEventListener('click', function(){
+  goToImage(--currentImage);
+});
+$('#down').addEventListener('click', function(){
+  goToImage(++currentImage);
+});
+$('#zoom').addEventListener('click', function(){
+  zoom($('#a' + currentImage));
+});
+
 $form.addEventListener('submit', function(e){
   e.preventDefault();
-  createGal($from.value, $to.value);
+  createGal($start.value, $shift.value);
 });
 
 

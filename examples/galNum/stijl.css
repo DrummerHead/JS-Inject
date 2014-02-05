@@ -37,7 +37,8 @@ form {
 .v {
   display: block;
 }
-main {
+main,
+#move {
   text-align: center;
 }
 #gal {
@@ -46,6 +47,7 @@ main {
   margin: 0;
 }
 #gal li {
+  min-height: "+innerHeight+"px;
   padding: 7em 0;
 }
 #gal img {
@@ -64,6 +66,41 @@ main {
 #gal a:hover {
   color: #808080;
   text-decoration: underline;
+}
+#move {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 5em;
+  padding: 0;
+  margin: 0;
+  font-size: 1.4em;
+  list-style-type: none;
+  color: #888;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+}
+#move li {
+  float: left;
+  width: 2.75em;
+  height: 2em;
+  line-height: 2em;
+  cursor: pointer;
+}
+#move li:hover {
+  color: #444;
+}
+#up,
+#down {
+  text-indent: .5em;
+}
+#down {
+  clear: left;
+}
+#move #zoom {
+  width: 2em;
+  text-indent: -.5em;
 }
 #more {
   padding: 1em;
