@@ -2,105 +2,130 @@
 (function(document, stringified){
 
 
+
+// Helper functions
+//
 var $ = function(element){
-  return document.getElementById(element)
+  return document.querySelector(element)
 };
-var $gal = $('gal');
-var galWidth = parseInt(getComputedStyle($gal).getPropertyValue('width'), 10);
+
+
+// Features common to galFly and galNum
+//
+var galCommons = (function(){
+  return {
+    defaultShift: 25,
+    currentImage: 0,
+    minImage: 0,
+    maxImage: this.defaultShift,
+
+    init: function(galWidthElement){
+      var _this = this;
+      _this.galWidth = parseInt(getComputedStyle(galWidthElement).getPropertyValue('width'), 10);
+      onkeypress = function(e){
+        if(e.charCode == 106){
+          _this.goToImage(++_this.currentImage);
+        }
+        else if(e.charCode == 107){
+          _this.goToImage(--_this.currentImage);
+        }
+        else if(e.charCode == 108){
+          _this.zoom($('#a' + _this.currentImage));
+        }
+      };
+      $('#up').addEventListener('click', function(){
+        _this.goToImage(--_this.currentImage);
+      });
+      $('#down').addEventListener('click', function(){
+        _this.goToImage(++_this.currentImage);
+      });
+      $('#zoom').addEventListener('click', function(){
+        _this.zoom($('#a' + _this.currentImage));
+      });
+    },
+
+    goToImage: function(id){
+      if(id >= this.maxImage){
+        scrollTo(0, 77777);
+      }
+      else if(id >= this.minImage){
+        scrollTo(0, $('#a' + id).offsetTop - 5);
+      }
+    },
+
+    zoom: function(el){
+      var t = el.currentTarget || el;
+      t.ct++;
+      var newWidth = t.naturalWidth * (t.ct + 1);
+      if(newWidth <= this.galWidth){
+        t.setAttribute('style', 'width:' + newWidth + 'px;height:' + t.naturalHeight * (t.ct + 1) + 'px');
+      }
+      else{
+        t.setAttribute('style', 'width:100%');
+        t.ct = -1;
+      }
+      if(t.ct == 3){
+        t.ct = -1;
+      }
+    },
+
+    bindResize: function(imgs){
+      for(var i = 0; i < imgs.length; i++){
+        var I = imgs.item(i);
+        I.ct = 0;
+        I.addEventListener('click', this.zoom.bind(this));
+      }
+    }
+  }
+})();
+
+
+// Selector variables and source of data
+//
+var $gal = $('#gal');
 // change this line when minifying, parse raw string
 var imageLinks = JSON.parse(stringified);
-var shift = 25;
-var increase = shift;
-var currentImage = 0;
-var minImage = 0;
-var maxImage = shift;
+var increase = galCommons.defaultShift;
 
-var goToImage = function(id){
-  if(id >= maxImage){
-    scrollTo(0, 77777);
-  }
-  else if(id >= minImage){
-    var el = $('a' + id);
-    scrollTo(0, el.offsetTop - 5);
-  }
-};
 
-var zoom = function(el){
-  var t = el.currentTarget || el;
-  t.ct++;
-  var newWidth = t.naturalWidth * (t.ct + 1);
-  if(newWidth <= galWidth){
-    t.setAttribute('style', 'width:' + newWidth + 'px;height:' + t.naturalHeight * (t.ct + 1) + 'px');
-  }
-  else{
-    t.setAttribute('style', 'width:100%');
-    t.ct = -1;
-  }
-  if(t.ct == 3){
-    t.ct = -1;
-  }
-}
-
-var bindResize = function(imgs){
-  for(var i = 0; i < imgs.length; i++){
-    var I = imgs.item(i);
-    I.ct = 0;
-    I.addEventListener('click', zoom);
-  }
-};
-
-var inject = function(start){
-  $gal.innerHTML = '';
-  var load = '';
-  currentImage = start;
-  minImage = start;
+// Specifics of galFly related to creating the gallery and injecting
+//
+var createGal = function(start){
+  var galleryHTML = $gal.innerHTML = '';
+  galCommons.currentImage = galCommons.minImage = start;
 
   if(imageLinks.length > increase){
-    for(var i = start; i < start + shift; i++){
-      load += imageLinks[i];
+    for(var i = start; i < start + galCommons.defaultShift; i++){
+      galleryHTML += imageLinks[i];
     }
-    increase += shift;
-    maxImage = start + shift;
+    increase += galCommons.defaultShift;
+    galCommons.maxImage = start + galCommons.defaultShift;
 
     $gal.insertAdjacentHTML('afterEnd', '<div id=\"more\">Load more</div>');
-    $('more').addEventListener('click', function(){
+    $('#more').addEventListener('click', function(){
       scrollTo(0, 0);
       this.outerHTML = '';
-      inject(start + shift);
+      createGal(start + galCommons.defaultShift);
     });
   }
   else {
     for(var i = start; i < imageLinks.length; i++){
-      load += imageLinks[i];
+      galleryHTML += imageLinks[i];
     }
-    maxImage = imageLinks.length;
+    galCommons.maxImage = imageLinks.length;
     $gal.insertAdjacentHTML('afterEnd', '<div id=\"end\"></div>');
   }
 
-  $gal.innerHTML = load;
-  bindResize(document.querySelectorAll('img'));
+  $gal.innerHTML = galleryHTML;
+  galCommons.bindResize(document.querySelectorAll('img'));
 };
 
-onkeypress = function(e){
-  if(e.charCode == 106){
-    goToImage(++currentImage);
-  }
-  else if(e.charCode == 107){
-    goToImage(--currentImage);
-  }
-};
 
-$('up').addEventListener('click', function(){
-  goToImage(--currentImage);
-});
-$('down').addEventListener('click', function(){
-  goToImage(++currentImage);
-});
-$('zoom').addEventListener('click', function(){
-  zoom($('a' + currentImage));
-});
+galCommons.init($gal);
 
-inject(0);
+createGal(0);
+
+
 
 
 // remove stringified when minifying
