@@ -24,55 +24,59 @@ var galCommons = (function(){
       _this.galWidth = parseInt(getComputedStyle(galWidthElement).getPropertyValue('width'), 10);
       onkeypress = function(e){
         if(e.charCode == 106){
-          _this.goToImage(++_this.currentImage);
+          _this.goToImage(true);
         }
         else if(e.charCode == 107){
-          _this.goToImage(--_this.currentImage);
+          _this.goToImage(false);
         }
         else if(e.charCode == 108){
           _this.zoom($('#a' + _this.currentImage));
         }
       };
-      $('#up').addEventListener('click', function(){
-        _this.goToImage(--_this.currentImage);
-      });
       $('#down').addEventListener('click', function(){
-        _this.goToImage(++_this.currentImage);
+        _this.goToImage(true);
+      });
+      $('#up').addEventListener('click', function(){
+        _this.goToImage(false);
       });
       $('#zoom').addEventListener('click', function(){
         _this.zoom($('#a' + _this.currentImage));
       });
     },
 
-    goToImage: function(id){
-      if(id >= this.maxImage){
-        scrollTo(0, 77777);
+    goToImage: function(isGoingDown){
+      if(isGoingDown){
+        if((this.currentImage + 1) >= this.maxImage){
+          scrollTo(0, scrollMaxY);
+        }
+        else{
+          scrollTo(0, $('#a' + ++this.currentImage).offsetTop - 5);
+        }
       }
-      else if(id >= this.minImage){
-        scrollTo(0, $('#a' + id).offsetTop - 5);
+      else{
+        if((this.currentImage - 1) >= this.minImage){
+          scrollTo(0, $('#a' + --this.currentImage).offsetTop - 5);
+        }
       }
     },
 
     zoom: function(el){
       var t = el.currentTarget || el;
-      t.ct++;
       var newWidth = t.naturalWidth * (t.ct + 1);
       if(newWidth <= this.galWidth){
-        t.setAttribute('style', 'width:' + newWidth + 'px;height:' + t.naturalHeight * (t.ct + 1) + 'px');
+        t.ct++;
+        t.setAttribute('style', 'width:' + newWidth + 'px;height:' + t.naturalHeight * t.ct + 'px');
       }
       else{
+        t.ct = 0;
         t.setAttribute('style', 'width:100%');
-        t.ct = -1;
-      }
-      if(t.ct == 3){
-        t.ct = -1;
       }
     },
 
     bindResize: function(imgs){
       for(var i = 0; i < imgs.length; i++){
         var I = imgs.item(i);
-        I.ct = 0;
+        I.ct = 1;
         I.addEventListener('click', this.zoom.bind(this));
       }
     }
