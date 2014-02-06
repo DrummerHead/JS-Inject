@@ -1,4 +1,3 @@
-// remove stringified when minifying
 (function(document, stringified){
 
 
@@ -47,7 +46,7 @@ var galCommons = (function(){
     goToImage: function(isGoingDown){
       if(isGoingDown){
         if((this.currentImage + 1) >= this.maxImage){
-          scrollTo(0, scrollMaxY);
+          scrollTo(0, document.body.scrollHeight);
         }
         else{
           scrollTo(0, $('#a' + ++this.currentImage).offsetTop - 5);
@@ -87,7 +86,6 @@ var galCommons = (function(){
 // Selector variables and source of data
 //
 var $gal = $('#gal');
-// change this line when minifying, parse raw string
 var imageLinks = JSON.parse(stringified);
 var increase = galCommons.defaultShift;
 
@@ -132,5 +130,4 @@ createGal(0);
 
 
 
-// remove stringified when minifying
 })(document, stringified)

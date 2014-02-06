@@ -42,13 +42,13 @@ main,
   text-align: center;
 }
 #gal {
-  list-style-type: none;
-  padding: 0 1em;
+  padding: 1em;
   margin: 0;
+  list-style-type: none;
 }
 #gal li {
   min-height: "+innerHeight+"px;
-  padding: 7em 0;
+  padding: 4em 0;
 }
 #gal img {
   display: block;

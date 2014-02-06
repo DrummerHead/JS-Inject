@@ -10,14 +10,13 @@ body {
 }
 #gal li {
   min-height: "+innerHeight+"px;
-  padding: 4em 0
+  padding: 4em 0;
 }
 #gal img {
   display: block;
   max-width: 100%;
   margin: 0 auto;
   font-size: 3em;
-  text-align: center;
   color: #ccc;
 }
 #gal a {
@@ -67,11 +66,11 @@ body {
 }
 #more {
   padding: 1em;
-  cursor: pointer;
-  background-color: #eee;
-  color: #888;
   font-size: 1.5em;
   font-weight: bold;
+  background-color: #eee;
+  color: #888;
+  cursor: pointer;
 }
 #more:hover {
   background-color: #ddd;

@@ -1,4 +1,4 @@
-(function(document){
+(function(document, href){
 
 
 
@@ -49,7 +49,7 @@ var galCommons = (function(){
     goToImage: function(isGoingDown){
       if(isGoingDown){
         if((this.currentImage + 1) >= this.maxImage){
-          scrollTo(0, scrollMaxY);
+          scrollTo(0, document.body.scrollHeight);
         }
         else{
           scrollTo(0, $('#a' + ++this.currentImage).offsetTop - 5);
@@ -95,7 +95,7 @@ var $form = $('form');
 var $main = $('main');
 var hrefBarContent = '';
 var constantHref;
-var hrefParts = 'http://photos.safaribookings.com/library/botswana/xxl/Mokolodi_Nature_Reserve_001.jpg'.split(/(\d+)/).map(function(part){
+var hrefParts = href.split(/(\d+)/).map(function(part){
   return {
     'prt' : part,
     'isN' : /^\d+$/.test(part),
@@ -180,4 +180,4 @@ $form.addEventListener('submit', function(e){
 
 
 
-})(document)
+})(document, href)
