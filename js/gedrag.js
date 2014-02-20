@@ -31,8 +31,9 @@ $form.submit(function(e){
         .replace(/%/g,'%25')                   // Safe porcentage
         .replace(/'/g,'%27')                  // Safe single quotes
         .replace(/"/g,'%22')                 // Safe double quotes
-        .replace(/[\r\n\t]/g,' ')           // No newlines or tabs
-        .replace(/ +/g,' ')                // No extra spaces
+        .replace(/&/g,'%26')                // Safe ampersand
+        .replace(/[\r\n\t]/g,' ')          // No newlines or tabs
+        .replace(/ +/g,' ')               // No extra spaces
     , nome = $linkName.val()
     , hasJq = $('#hasJQuery:checked').length
     , aHref = hasJq ?
