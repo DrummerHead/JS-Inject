@@ -4,82 +4,46 @@
 
 /* -  Hideliminator - Any website         - *\
 |* -  Hide elements on command            - *|
-|* -  Remember to check "Include jQuery"  - *|
-\* -  v1.0                                - */
+\* -  v2.0                                - */
 
 
-var h1d3l1m1n4t04 = {
 
-  $me : function(){
-    return this
-  },
 
-  seeMe : function(){
-    console.log(this.$me());
-  },
+(function(document){
 
-  $allElem : $('body *'),
 
-  $body : $('body'),
+document.querySelector('head').insertAdjacentHTML('beforeEnd', '<style>.gun-point{outline:.3em solid red}#retirement{position:fixed;top:0;right:0;padding:.5em 1em;color:#fff;background-color:#080}#retirement:hover{outline:none !important;background-color:#2a2;cursor:pointer}</style>');
 
-  $endThis : $('<a/>', {
-    href : '#',
-    id : 'endTheSuffering',
-    css : {
-      'position' : 'fixed',
-      'top' : '0',
-      'right' : '0',
-      'background-color' : 'rgba(0,0,0,.5)',
-      'display' : 'block',
-      'color' : '#fff',
-      'pointer' : 'cursor',
-      'text-decoration' : 'none',
-      'padding' : '1em',
-    },
-    text : 'End Hideliminator'
-  }),
-
-  hider : function(e) {
-    e.stopPropagation();
-    $(this).hide();
-    return false;
-  },
-
-  enter : function(e) {
-    e.stopPropagation();
-    $(this).css({
-      'outline':'1px solid red'
-    });
-  },
-
-  leave : function(e) {
-    e.stopPropagation();
-    $(this).css({
-      'outline':'none'
-    });
-  },
-
-  endHideliminator : function(e) {
-    e.preventDefault();
-    this.$allElem.unbind('.h1d3l1m1n4t04');
-  },
-
-  initialize : function() {
-    this.$allElem
-      .bind('click.h1d3l1m1n4t04', this.hider)
-      .bind('mouseover.h1d3l1m1n4t04', this.enter)
-      .bind('mouseout.h1d3l1m1n4t04', this.leave);
-    this.$body.prepend(this.$endThis);
-  }
+var bod = document.body;
+var targetSuspect = function(event){
+  event.target.classList.add('gun-point');
+};
+var dismissSuspect = function(event){
+  event.target.classList.remove('gun-point');
+};
+var killSuspect = function(event){
+  event.preventDefault();
+  event.target.parentNode.removeChild(event.target);
 };
 
-h1d3l1m1n4t04.initialize();
+bod.insertAdjacentHTML('beforeEnd','<div id="retirement">Stop judgement</div>');
 
-// this is wrong but I am tired of finding the way to do it right
-$('#endTheSuffering').click(function(e){
-  h1d3l1m1n4t04.endHideliminator(e);
-  $(this).fadeOut();
+bod.addEventListener('mouseover', targetSuspect, false);
+bod.addEventListener('mouseout', dismissSuspect, false);
+bod.addEventListener('click', killSuspect, false);
+
+document.querySelector('#retirement').addEventListener('click', function(event){
+  bod.removeEventListener('mouseover', targetSuspect, false);
+  bod.removeEventListener('mouseout', dismissSuspect, false);
+  bod.removeEventListener('click', killSuspect, false);
+  this.parentNode.removeChild(this);
 });
+
+
+})(document)
+
+
+
 
 
 /* -  /Hideliminator  - */
