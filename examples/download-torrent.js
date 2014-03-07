@@ -6,6 +6,12 @@
 |* -  Clicks on correct download torrent link  - *|
 \* -  v1.0                                     - */
 
+(function(document){
+
+function warn(message){
+  document.querySelector('body').insertAdjacentHTML('beforeEnd', '<div style="position: fixed; top: 0; left: 0; z-index: 7777; width: 99%; padding: 1%; text-align: center; background-color: red; color: #fff; font-weight: bold; font-family: sans-serif;">' + message + '</div>');
+};
+
 function c(target) {
   var click = new MouseEvent('click', {
     'view': window,
@@ -17,9 +23,9 @@ function c(target) {
      targetElement.dispatchEvent(click);
   }
   else{
-    alert('The element does not exist');
+    warn('The element does not exist');
   }
-}
+};
 
 var host = window.location.host;
 
@@ -101,7 +107,13 @@ switch(host){
     break;
 
   default:
-    alert('Unknown site');
+    warn('Unknown site');
 }
+
+
+})(document)
+
+
+
 
 /* -  /Multisite  - */
