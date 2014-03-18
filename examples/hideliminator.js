@@ -12,7 +12,7 @@
 (function(document){
 
 
-document.querySelector('head').insertAdjacentHTML('beforeEnd', '<style>.gun-point{outline:.3em solid red}#retirement{position:fixed;top:0;right:0;padding:.5em 1em;color:#fff;background-color:#080}#retirement:hover{outline:none !important;background-color:#2a2;cursor:pointer}</style>');
+document.querySelector('head').insertAdjacentHTML('beforeEnd', '<style>.gun-point{outline:.3em solid red}#retirement{position:fixed;top:0;right:0;padding:.5em 1em;z-index:2147483647;color:#fff;background-color:#080}#retirement:hover{outline:none !important;background-color:#2a2;cursor:pointer}</style>');
 
 var bod = document.body;
 var targetSuspect = function(event){
