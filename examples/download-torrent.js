@@ -32,13 +32,14 @@ var host = window.location.host;
 switch(host){
   case 'thepiratebay.se':
   case 'baymirror.com':
+  case 'fastpiratebay.eu':
     c('.download a:first-child');
     break;
   case 'yourbittorrent.com':
     c('#content table:nth-of-type(2) td[height="100"] a');
     break;
   case 'www.monova.org':
-    c('#main .usenetd h2 > a');
+    c('#downloadbox h2 a');
     break;
   case 'www.seedpeer.me':
     c('.leftSideHolder .downloadMenu .downloadTorrent > a:first-child');
@@ -60,7 +61,8 @@ switch(host){
     break;
   case 'kickass.to':
   case 'kickmirror.com':
-    c('.downloadButtonGroup a.siteButton');
+  case 'katproxy.com':
+    c('.downloadButtonGroup a.verifTorrentButton');
     break;
   case 'torcache.net':
     c('.container-fluid > .row-fluid > center:nth-of-type(2) a');
@@ -69,12 +71,13 @@ switch(host){
     c('#dload a.dlbtn.dl_tor2');
     break;
   case 'www.torrentreactor.net':
-    c('a#download-url');
+    c('a#download-magnet');
     break;
   case 'publichd.se':
     c('#torrmain tr:nth-child(5) td:nth-child(2) a');
     break;
   case '1337x.org':
+  case '1337x.to':
     c('.torrentInfoBox .torrentInfoBtn a.torrentDw');
     break;
   case 'extratorrent.cc':
@@ -94,16 +97,20 @@ switch(host){
     c('table.lista tr:first-child td.lista a');
     break;
   case 'www.vertor.com':
+  case 'vertor.eu':
     c('.down_but li:nth-child(2) a.downloadLink');
     break;
   case 'www.fulldls.com':
-    c('#dwl a.download_link');
+    c('.downl-buttons .btn-grp a:first-child');
     break;
   case 'www.newtorrents.info':
     c('#tablediv .sm tr:first-child td:nth-child(2) a');
     break;
   case 'h33t.to':
     c('table.lista tr:nth-child(2) td:nth-child(2) table td:nth-child(2) a');
+    break;
+  case 'www.torrentbit.net':
+    c('.tor_item a[title="Download torrent"]');
     break;
 
   default:
