@@ -8,11 +8,11 @@
 
 (function(document){
 
-function warn(message){
-  document.querySelector('body').insertAdjacentHTML('beforeEnd', '<div style="position: fixed; top: 0; left: 0; z-index: 7777; width: 99%; padding: 1%; text-align: center; background-color: red; color: #fff; font-weight: bold; font-family: sans-serif;">' + message + '</div>');
+var flash = function(message, isNice){
+  document.querySelector('body').insertAdjacentHTML('beforeEnd', '<div style="position: fixed; top: 0; left: 0; z-index: 7777; width: 99%; padding: 1%; text-align: center; background-color: ' + (isNice ? 'green' : 'red') + '; color: #fff; font-weight: bold; font-family: sans-serif;">' + message + '</div>');
 };
 
-function c(target) {
+var c = function(target) {
   var click = new MouseEvent('click', {
     'view': window,
     'bubbles': true,
@@ -20,10 +20,11 @@ function c(target) {
   });
   var targetElement = document.querySelector(target);
   if(document.contains(targetElement)){
-     targetElement.dispatchEvent(click);
+    targetElement.dispatchEvent(click);
+    flash('Downloaded successfully', true);
   }
   else{
-    warn('The element does not exist');
+    flash('The element does not exist', false);
   }
 };
 
@@ -54,6 +55,7 @@ switch(host){
     c('.content table[cellspacing="4"] tr:first-child td:nth-child(2) > a');
     break;
   case 'www.limetorrents.com':
+  case 'www.limetorrents.cc':
     c('.dltorrent a.csprite_dltorrent');
     break;
   case 'torrentcrazy.com':
@@ -114,11 +116,11 @@ switch(host){
     break;
 
   default:
-    warn('Unknown site');
+    flash('Unknown site', false);
 }
 
 
-})(document)
+})(document);
 
 
 
