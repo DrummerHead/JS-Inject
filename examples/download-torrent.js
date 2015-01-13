@@ -43,6 +43,7 @@ switch(host){
     c('#downloadbox h2 a');
     break;
   case 'www.seedpeer.me':
+  case 'www.seedpeer.eu':
     c('.leftSideHolder .downloadMenu .downloadTorrent > a:first-child');
     break;
   case 'www.torrentdownloads.me':
@@ -62,6 +63,7 @@ switch(host){
     c('#dl-links > a:first-child');
     break;
   case 'kickass.to':
+  case 'kickass.so':
   case 'kickmirror.com':
   case 'katproxy.com':
     c('.downloadButtonGroup a.verifTorrentButton');
@@ -80,7 +82,7 @@ switch(host){
     break;
   case '1337x.org':
   case '1337x.to':
-    c('.torrentInfoBox .torrentInfoBtn a.torrentDw');
+    c('a.torrent');
     break;
   case 'extratorrent.cc':
     c('.tabledata0 a[title="Download"]');
@@ -90,7 +92,7 @@ switch(host){
     c('#torrent a');
     break;
   case 'www.torlock.com':
-    c('#content > center > table tr:first-child td:nth-child(2) a');
+    c('a[href^="/tor/"]');
     break;
   case 'www.torrentzap.com':
     c('#rightside .downbuts a.downloadLink');
@@ -114,6 +116,28 @@ switch(host){
   case 'www.torrentbit.net':
     c('.tor_item a[title="Download torrent"]');
     break;
+  case 'torrentproject.se':
+    c('#download .usite:nth-child(2) a');
+    break;
+  case 'www.bt-chat.com':
+    window.open(document.querySelector('a[href^="download"]').getAttribute('href').replace('download', 'download1') + '&type=torrent');
+    flash('Downloaded in new tab', true);
+    break;
+  case 'www.demonoid.pw':
+    c('[src="/images/arrows/blue.png"]');
+    break;
+  case 'yts.re':
+    c('.std-btn.torrentDwl');
+    break;
+  case 'isohunt.to':
+    c('.btn-download');
+    break;
+
+  /*
+  case '':
+    c('');
+    break;
+  */
 
   default:
     flash('Unknown site', false);
