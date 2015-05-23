@@ -34,10 +34,11 @@ switch(host){
   case 'thepiratebay.se':
   case 'baymirror.com':
   case 'fastpiratebay.eu':
+  case 'thepiratebay.mn':
     c('.download a:first-child');
     break;
   case 'yourbittorrent.com':
-    c('#content table:nth-of-type(2) td[height="100"] a');
+    c('#main .row a[href$=torrent]');
     break;
   case 'www.monova.org':
     c('#downloadbox h2 a');
@@ -66,6 +67,7 @@ switch(host){
   case 'kickass.so':
   case 'kickmirror.com':
   case 'katproxy.com':
+  case 'kat.cr':
     c('.downloadButtonGroup a.verifTorrentButton');
     break;
   case 'torcache.net':
@@ -98,6 +100,7 @@ switch(host){
     c('#rightside .downbuts a.downloadLink');
     break;
   case 'rarbg.com':
+  case 'rarbg.to':
     c('table.lista tr:first-child td.lista a');
     break;
   case 'www.vertor.com':
@@ -132,6 +135,14 @@ switch(host){
   case 'isohunt.to':
     c('.btn-download');
     break;
+  case 'yts.to':
+    if(document.querySelector('.modal-download .modal-content .modal-torrent:nth-child(2)') === null){
+      c('.modal-download a.download-torrent');
+    }
+    else{
+      c('.modal-download .modal-content .modal-torrent:nth-child(2) a.download-torrent');
+    }
+    break;
 
   /*
   case '':
@@ -147,6 +158,9 @@ switch(host){
 })(document);
 
 
+/*
+ console.log(window.location.host);
+ * */
 
 
 /* -  /Multisite  - */
