@@ -16,31 +16,37 @@ const findParentBySelector = (elem, selector) => {
   }
 };
 
-const isEndOfObject = (row) => {
-  return /}/.test(row.textContent);
-};
+const isStartOfObject = (row) => /{/.test(row.textContent);
+
+const isEndOfObject = (row) => /}/.test(row.textContent);
 
 const linkToNMP = (tr) => {
   const packageEl = tr.querySelector('.pl-s:first-child');
   const packageText = packageEl.textContent;
-  const packageName = packageEl.textContent.replace(/["']*/g, '');
+  const packageName = packageText.replace(/["']*/g, '');
   packageEl.innerHTML = `<a href='https://www.npmjs.com/package/${packageName}' style='text-decoration: underline'>${packageText}</a>`;
 };
 
 const traverseTrs = (dep) => {
   const trFather = dep.matches('tr') ? dep : findParentBySelector(dep, 'tr');
-  const trSibling = trFather.nextElementSibling
-  if(!isEndOfObject(trSibling)){
-    linkToNMP(trSibling);
-    traverseTrs(trSibling);
+  const trSibling = trFather.nextElementSibling;
+
+  if(!isEndOfObject(trFather)){
+    if(isStartOfObject(trFather)){
+      traverseTrs(trSibling);
+    } else {
+      linkToNMP(trFather);
+      traverseTrs(trSibling);
+    }
   }
+
 };
 
 if (window.location.host === 'github.com' && window.location.pathname.endsWith('package.json')) {
   const deps = Array.from(document.querySelectorAll('.pl-s:first-child'))
     .filter((el, i) => /"(dev)?[Dd]ependencies"/.test(el.textContent));
   for(dep of deps){
-    traverseTrs(dep)
+    traverseTrs(dep);
   };
 } else {
   alert('This is not a package.json file on github.com');
